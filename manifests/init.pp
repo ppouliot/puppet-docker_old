@@ -35,7 +35,7 @@
 #
 # Copyright 2013 Your name here, unless otherwise noted.
 #
-class docker (
+class docker {
 
   apt::key {'docker':
     key_source => 'http://get.docker.io/gpg',
