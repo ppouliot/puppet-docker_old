@@ -36,14 +36,20 @@
 # Copyright 2013 Your name here, unless otherwise noted.
 #
 class docker (
-  $goroot = $docker::params::goroot,
-  $gopath = $docker::params::goroot
-) inherits docker::params {
 
-  class {'docker::go':}
-  class {'docker::packages':}
-  class {'docker::src':}
+  apt::key {'docker':
+    key_source => 'http://get.docker.io/gpg',
+  }
+  apt::source{'docker':
+    location    => 'http://get.docker.io/ubuntu',
+    release     => 'docker',
+    repos       => 'main',
+    include_src => false,
+  }
+
+  package {'lxc-docker':
+    ensure => latest,
+    require => [Apt::Key['docker'],Apt::Source['docker']],
+  }
 
 }
-
-Class['docker::go'] -> Class['docker::packages'] -> Class['docker::src']
