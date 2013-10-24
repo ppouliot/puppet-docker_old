@@ -37,7 +37,7 @@ class docker::params {
       }
       file {'/etc/ufw/applications.d/docker':
         ensure => present,
-        source => 'puppet:///modules/docker/etc/ufw/docker',
+        source => 'puppet:///modules/docker/etc/ufw/applications.d/docker',
         notify => Service['ufw'],
       }
       service {'ufw':
