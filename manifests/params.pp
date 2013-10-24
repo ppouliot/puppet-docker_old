@@ -32,15 +32,20 @@ class docker::params {
       ]
       file {'/etc/default/ufw':
         ensure => present,
-        source => 'puppet:///modules/docker/ufw.default',
+        source => 'puppet:///modules/docker/etc/default/ufw',
+        notify => Service['ufw'],
+      }
+      file {'/etc/ufw/applications.d/docker':
+        ensure => present,
+        source => 'puppet:///modules/docker/etc/ufw/docker',
         notify => Service['ufw'],
       }
       service {'ufw':
         enable => true,
         ensure => running,
       }
-
     }
+
     'CentOS','RedHat','ScientificLinux': {
       if $operatingsystemmajrelease == '6' {
 
@@ -57,7 +62,7 @@ class docker::params {
         }
         file {'/etc/selinux/config':
           ensure => present,
-          source => 'puppet:///modules/docker/selinux.config',
+          source => 'puppet:///modules/docker/etc/selinux/config',
 	  mode   => '0644',
           owner  => 'root',
           group  => 'root',
@@ -83,6 +88,7 @@ class docker::params {
         warning("Unsupported ${operatingsystem} version ${operatingsystemrelease}")
       }
     }
+
     default: {
       warning('Unsupported Distribution')
     }
