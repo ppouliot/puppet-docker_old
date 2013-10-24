@@ -7,6 +7,11 @@ an interpretation of the instructions located here:
 Use at your own Risk.
 
  * http://docs.docker.io/en/latest/installation/ubuntulinux/
+
+Supported Distributions
+-----------------------
+  * Ubuntu 12.04 LTS
+  * Ubuntu 13.10
  
 Installation
 ------------
