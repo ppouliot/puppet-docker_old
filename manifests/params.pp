@@ -30,6 +30,11 @@ class docker::params {
         Apt::Key['docker'],
         Apt::Source['docker']
       ]
+      file {'/etc/default/ufw':
+        ensure => present,
+        source => 'puppet:///modules/docker/ufw.default',
+        notify => Service['ufw'],
+      }
     }
     'CentOS','RedHat','ScientificLinux': {
       if $operatingsystemmajrelease == '6' {
