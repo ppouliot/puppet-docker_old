@@ -37,7 +37,7 @@
 #
 
 class docker (
-  $required_kernel = $docker::params::required_kernel
+  $required_kernel = $docker::params::required_kernel,
   $docker          = $docker::params::docker
 )inherits docker::params {
 
