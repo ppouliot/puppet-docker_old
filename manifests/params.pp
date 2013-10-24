@@ -44,7 +44,7 @@ class docker::params {
           source   => "http://dl.fedoraproject.org/pub/epel/6/${architecture}/epel-release-6-8.noarch.rpm",
         }
 
-        yumrepo {'www.hop5.in Centos Repository'
+        yumrepo {'www.hop5.in Centos Repository':
           name => 'hop5',
           baseurl => 'http://www.hop5.in/yum/el6/',
           gpgcheck => 0,
