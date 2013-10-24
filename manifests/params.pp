@@ -49,15 +49,15 @@ class docker::params {
     'CentOS','RedHat','ScientificLinux': {
       if $operatingsystemmajrelease == '6' {
 
-        package {'epel-release-6.8':
+        package {'epel-release':
           ensure   => installed,
           provider => rpm,
           source   => "http://dl.fedoraproject.org/pub/epel/6/${architecture}/epel-release-6-8.noarch.rpm",
         }
 
         yumrepo {'www.hop5.in Centos Repository':
-          name => 'hop5',
-          baseurl => 'http://www.hop5.in/yum/el6/',
+          name     => 'hop5',
+          baseurl  => 'http://www.hop5.in/yum/el6/',
           gpgcheck => 0,
         }
         file {'/etc/selinux/config':
@@ -81,7 +81,7 @@ class docker::params {
         $docker          = "docker-io"
         $docker_requirements = [
           File['/etc/selinux/config'],
-          Package['epel-release-6.8'],
+          Package['epel-release'],
           Yumrepo['www.hop5.in Centos Repository']
         ]
       } else {
