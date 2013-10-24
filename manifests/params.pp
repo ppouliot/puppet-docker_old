@@ -14,10 +14,6 @@ class docker::params {
         $required_kernel = "linux-image-extra-${kernelrelease}"
       }
 
-      package { "${required_kernel}":
-        ensure => latest
-      } 
-
       apt::key {'docker':
         key_source => 'http://get.docker.io/gpg',
       }
