@@ -35,6 +35,7 @@ class docker::params {
         source => 'puppet:///modules/docker/ufw.default',
         notify => Service['ufw'],
       }
+      service {'ufw':}
     }
     'CentOS','RedHat','ScientificLinux': {
       if $operatingsystemmajrelease == '6' {
