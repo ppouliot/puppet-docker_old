@@ -45,12 +45,12 @@ class docker {
 
       notify {"${lsbdisdescription} Docker Installation":}
 
-      if $lsbdistrelease == '12.04') {
+      if $lsbdistrelease == '12.04'{
         $required_kernel = ['linux-image-generic-lts-raring',
                             'linux-headers-generic-lts-raring'],
       }
   
-      if $lsbdistrelease == '13.10') {
+      if $lsbdistrelease == '13.10' {
         $required_kernel = "linux-image-extra-${kernelrelease}"
       }
 
