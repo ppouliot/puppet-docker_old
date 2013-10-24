@@ -46,6 +46,15 @@ class docker::params {
           gpgcheck => 0,
         }
 
+        file {'/etc/fstab':
+          ensure => present,
+        } -> 
+
+        file_line {'enable_cgroup_in_fstab':
+          line => 'none                    /sys/fs/cgroup          cgroup  defaults        0 0',
+          path => '/etc/fstab',
+        }
+
         $required_kernel = "kernel-ml-aufs"
         $docker          = "docker-io"
         $docker_requirements = [
