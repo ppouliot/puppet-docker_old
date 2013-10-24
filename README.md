@@ -12,6 +12,8 @@ Supported Distributions
 -----------------------
   * Ubuntu 12.04 LTS
   * Ubuntu 13.10
+  * CentOS 6.4
+  * ScientificLinux 6.4
  
 Installation
 ------------
