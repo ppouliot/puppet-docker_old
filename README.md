@@ -2,12 +2,18 @@ puppet-docker
 ==============
 This module installs Docker on Ubuntu 13.10.
 
-Basic usage
------------
-The basic scenario allows the user to install Docker it is an interpretation of the instructions located here:
-http://www.digitalocean.com/community/articles/how-to-install-docker-on-ubuntu-13-04-x64-vps
+The basic scenario allows the user to install Docker it is
+an interpretation of the instructions located here:
+Use at your own Risk.
+
+ * http://docs.docker.io/en/latest/installation/ubuntulinux/
+ 
+Installation
+------------
 
     class { 'docker': }
+
+
 
 
 Contributors
