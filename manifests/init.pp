@@ -35,11 +35,8 @@
 #
 # Copyright 2013 Your name here, unless otherwise noted.
 #
+
 class docker {
-# Example
-#if ($lsbdistid == 'Ubuntu') and ( $lsbdistrelease == '13.10') {
-  
-  if $lsbdistid == 'Ubuntu' {
   case $lsbdistid {
     'Ubuntu': {
 
