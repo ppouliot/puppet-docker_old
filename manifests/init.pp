@@ -69,7 +69,7 @@ class docker {
       package {'lxc-docker':
         ensure => latest,
         require => [
-          Package["${required_kernel}"]
+          Package["${required_kernel}"],
           Apt::Key['docker'],
           Apt::Source['docker']],
       }
