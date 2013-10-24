@@ -41,11 +41,11 @@ class docker (
   $docker          = $docker::params::docker
 )inherits docker::params {
 
-  package { "${required_kernel}":
+  package { $required_kernel:
     ensure => latest
   } 
 
-  package {"${docker}:
+  package { $docker:
     ensure => latest,
     require => [ Package[$required_kernel], $docker_requirements ],
   }
