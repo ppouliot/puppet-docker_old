@@ -45,6 +45,13 @@ class docker::params {
           baseurl => 'http://www.hop5.in/yum/el6/',
           gpgcheck => 0,
         }
+        file {'/etc/selinux/config':
+          ensure => present,
+          source => 'puppet:///modules/docker/selinux.config',
+	  mode   => '0644',
+          owner  => 'root',
+          group  => 'root',
+        }
 
         file {'/etc/fstab':
           ensure => present,
@@ -58,6 +65,7 @@ class docker::params {
         $required_kernel = "kernel-ml-aufs"
         $docker          = "docker-io"
         $docker_requirements = [
+          File['/etc/selinux/config'],
           Package['epel-release-6.8'],
           Yumrepo['www.hop5.in Centos Repository']
         ]
