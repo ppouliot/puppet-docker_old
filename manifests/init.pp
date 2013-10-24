@@ -42,7 +42,7 @@ class docker (
 )inherits docker::params {
 
   package { $required_kernel:
-    ensure => latest
+    ensure => installed,
   } 
 
   package { $docker:
