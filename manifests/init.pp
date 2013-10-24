@@ -44,7 +44,7 @@ class docker {
 
       if $lsbdistrelease == '12.04'{
         $required_kernel = ['linux-image-generic-lts-raring',
-                            'linux-headers-generic-lts-raring'],
+                            'linux-headers-generic-lts-raring']
       }
   
       if $lsbdistrelease == '13.10' {
