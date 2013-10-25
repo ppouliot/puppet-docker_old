@@ -1,15 +1,23 @@
 puppet-docker
 ==============
-This module installs Docker on Ubuntu 13.10.
+A puppet module to install and control Docker
 
-The basic scenario allows the user to install Docker it is
-an interpretation of the instructions located here:
-Use at your own Risk.
+Docker is an open source project to pack, ship and
+run any application as a lightweight container.
+Additional information on Docker can be located here:
+
+ * http://docker.io
+
+The basic scenario allows the user to install Docker.
+Additional subclasses allow for control.
+This module was inspired by the documentation found here:
 
  * http://docs.docker.io/en/latest/installation/ubuntulinux/
 
-Supported Distributions
------------------------
+Distributions
+----------------
+Currently this should work on the following distributions.
+
   * Ubuntu 12.04 LTS
   * Ubuntu 13.10
   * CentOS 6.4
@@ -20,7 +28,25 @@ Installation
 
     class { 'docker': }
 
+Adding Containers
+-----------------
+To have docker automaticall pull containers from index.docker.io add the following to your node definition:
 
+    node foo.contoso.ltd {
+      class {'docker:'}
+      docker::pull{'ubuntu':}
+      docker::pull{'centos':}
+    }
+
+Custom Startup Parameters
+-------------------------
+You may also provide your own startup options by issuing the following
+
+    node foo.contoso.ltd {
+      class { docker: }
+        $docker_options => '-d -H="192.168.1.9:4243" -api-enable-cors'
+      }
+    }
 
 
 Contributors

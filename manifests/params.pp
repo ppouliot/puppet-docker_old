@@ -2,6 +2,9 @@
 #
 #
 class docker::params {
+
+  $docker_options = undef
+
   case $operatingsystem {
 
     'Ubuntu': {
@@ -30,27 +33,9 @@ class docker::params {
         Apt::Key['docker'],
         Apt::Source['docker']
       ]
-      file {'/etc/default/ufw':
-        ensure => present,
-        source => 'puppet:///modules/docker/etc/default/ufw',
-        notify => Service['ufw'],
-      }
-      file {'/etc/ufw/applications.d/docker':
-        ensure => present,
-        source => 'puppet:///modules/docker/etc/ufw/applications.d/docker',
-        notify => Service['ufw'],
-      }
-      service {'ufw':
-        enable => true,
-        ensure => running,
-      }
-      file {'/etc/default/grub':
-        ensure => present,
-      } ->
-      file_line {'enable_cgroup_in_kernel':
-        line => 'GRUB_CMDLINE_LINUX="cgroup_enable=memory swapaccount=1"',
-        path => '/etc/default/grub',
-      }
+
+      include docker::ubuntu::firewall
+      include docker::ubuntu::cgroups
 
     }
 
@@ -68,22 +53,6 @@ class docker::params {
           baseurl  => 'http://www.hop5.in/yum/el6/',
           gpgcheck => 0,
         }
-        file {'/etc/selinux/config':
-          ensure => present,
-          source => 'puppet:///modules/docker/etc/selinux/config',
-	  mode   => '0644',
-          owner  => 'root',
-          group  => 'root',
-        }
-
-        file {'/etc/fstab':
-          ensure => present,
-        } -> 
-
-        file_line {'enable_cgroup_in_fstab':
-          line => 'none                    /sys/fs/cgroup          cgroup  defaults        0 0',
-          path => '/etc/fstab',
-        }
 
         $required_kernel = "kernel-ml-aufs"
         $docker          = "docker-io"
@@ -92,6 +61,11 @@ class docker::params {
           Package['epel-release'],
           Yumrepo['www.hop5.in Centos Repository']
         ]
+
+        include docker::epel::selinux
+        include docker::epel::cgroups
+        include docker::epel::upstart
+
       } else {
         warning("Unsupported ${operatingsystem} version ${operatingsystemrelease}")
       }
