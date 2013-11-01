@@ -1,6 +1,5 @@
-# Ruby Code
 <%
-  grubconf = File.read(/etc/grub.conf)
+  grubconf = File.read(<%=@name%>)
   replace = grubconf.gsub(/default=1/,"default=0")
-  File.open(/etc/grub.conf,"w" {|file} file.puts replace}
+  File.open( <%=@name%> ,"w" {|file} file.puts replace}
 %>
