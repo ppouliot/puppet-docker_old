@@ -1,0 +1,60 @@
+# The `common' part is automatically included (and possibly overriden by all
+# other flavors)
+common:
+    # Bucket for storage
+    #boto_bucket: REPLACEME
+    loglevel:info
+
+    # Amazon S3 Storage Configuration
+#    s3_access_key: REPLACEME
+#    s3_secret_key: REPLACEME
+#    s3_bucket: REPLACEME
+#    s3_encrypt: REPLACEME
+#    s3_secure: REPLACEME
+#
+    # Google Cloud Storage Configuration
+    # See:
+    # https://developers.google.com/storage/docs/reference/v1/getting-startedv1#keys
+    # for details on access and secret keys.
+#    gs_access_key: REPLACEME
+#    gs_secret_key: REPLACEME
+#    gs_secure: REPLACEME
+
+    # Set a random string here
+#    secret_key: REPLACEME
+
+
+# This is the default configuration when no flavor is specified
+#dev:
+#    storage: local
+#    storage_path: /tmp/registry
+#    loglevel: debug
+
+# To specify another flavor, set the environment variable SETTINGS_FLAVOR
+# $ export SETTINGS_FLAVOR=prod
+prod:
+    loglevel: warn
+    #storage: s3
+    #storage_path: /prod
+    # Enabling these options makes the Registry send an email on each code Exception
+    #email_exceptions:
+    smtp_host: localhost
+    #    smtp_login: REPLACEME
+    #    smtp_password: REPLACEME
+    from_addr: docker-registry@localdomain
+    to_addr: docker@localdomain
+    storage: local
+    storage_path: /srv/docker/
+
+# This flavor is automatically used by unit tests
+test:
+    storage: local
+    storage_path: /tmp/test
+
+# This flavor stores the images in Glance (to integrate with openstack)
+# See also: https://github.com/dotcloud/openstack-docker
+openstack:
+    storage: glance
+    storage_alternate: local
+    storage_path: /tmp/registry
+    loglevel: debug
