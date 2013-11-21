@@ -44,7 +44,7 @@ class docker (
   } 
 
   package { $docker:
-    ensure => latest,
+    ensure => installed,
     require => [ Package[$required_kernel], $docker_requirements ],
   }
 }

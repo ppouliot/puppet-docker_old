@@ -16,6 +16,11 @@ class docker::registry(
     provider => git,
     source   => 'https://github.com/dotcloud/docker-registry.git'
   }
+  $docker_registry_prereq = ['python-openssl','libevent-dev','python-pip','python-dev']
+
+  package { $docker_registry_prereq:
+    ensure => latest,
+  }
 
   file {'/usr/local/src/docker-registry/config.yml':
     ensure => file,
@@ -24,8 +29,12 @@ class docker::registry(
   } 
 
   exec {'pip-install-requirements':
-    command => 'pip install -r requirements.txt',
-    cwd     => '/usr/local/src/docker-registry',
+    command   => '/usr/bin/pip install -r /usr/local/src/docker-registry/requirements.txt',
+#    command   => 'pip install -r requirements.txt',
+#    provider  => python,
+    cwd       => '/usr/local/src/docker-registry',
+    require   => [Package[$docker_registry_prereq],Vcsrepo['/usr/local/src/docker-registry']],
+    logoutput => true,
+    timeout   => 0,
   }
-   
 } 

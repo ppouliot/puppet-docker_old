@@ -16,7 +16,6 @@ class docker::params {
       if $lsbdistrelease == '13.10' {
         $required_kernel = "linux-image-extra-${kernelrelease}"
       }
-
       apt::key {'docker':
         key_source => 'http://get.docker.io/gpg',
       }
